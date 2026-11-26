@@ -1,0 +1,5 @@
+import rss from '@astrojs/rss';
+export function GET(context) {
+ const posts = Object.values(import.meta.glob('./blog/*.md', { eager: true }));
+ return rss({title:'XEMO Blog',description:'Ingeniería y tecnología',site:context.site,items:posts.map(post=>({title:post.frontmatter.title,description:post.frontmatter.description,pubDate:new Date(post.frontmatter.pubDate),link:post.url}))});
+}
