@@ -11,5 +11,9 @@
   "dependencies": {
     "astro": "7.4.13",
     "@astrojs/rss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.0",
+    "@lhci/cli": "^0.15.0"
   }
 }
