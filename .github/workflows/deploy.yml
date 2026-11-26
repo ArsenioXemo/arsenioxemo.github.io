@@ -11,13 +11,35 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: '22'
-      - run: npm install
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm audit --audit-level=high
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - run: node scripts/smoke.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - run: npx lhci autorun
+      - name: Passive security scan (local only)
+        run: |
+          npm run preview -- --host 127.0.0.1 --port 4321 > /tmp/xemo-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4321/ >/dev/null && break; sleep 1; done
+          mkdir -p zap-reports
+          chmod 777 zap-reports
+          docker run --rm --network host -v "$PWD/zap-reports:/zap/wrk:rw" ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://127.0.0.1:4321/ -m 1 -r zap.html -J zap.json -I
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: quality-reports
+          path: |
+            playwright-report/
+            test-results/
+            lighthouse-reports/
+            zap-reports/
+      - uses: actions/upload-pages-artifact@v5.0.0
         if: github.ref == 'refs/heads/main'
         with:
           path: dist
@@ -34,4 +56,4 @@ jobs:
     steps:
       - name: Deploy
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
