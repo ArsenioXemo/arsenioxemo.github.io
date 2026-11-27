@@ -2,7 +2,7 @@
 
 Personal website, technical blog and professional portfolio.
 
-**Current version:** 0.4.0 — Technical Blog
+**Current version:** 0.4.1 — LinkedIn Conversation Integration
 
 - [Live website](https://arsenioxemo.github.io/)
 - [Technical blog](https://arsenioxemo.github.io/blog/)
