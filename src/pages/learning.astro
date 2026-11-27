@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const categories = [
+ {title:'Inteligencia artificial', courses:['IA Generativa — 8 h · febrero 2025 (contenido audiovisual desarrollado por MIT Professional Education).','Prompting responsable: maximiza la IA en tu negocio — 8 h · julio 2025.','Domina la IA con Gemini — 2 h · marzo 2026.','Copilot: domina la IA en Microsoft 365 — 8 h · marzo 2026.','Google: Inteligencia Artificial y productividad — 2 h · febrero 2025.']},
+ {title:'Ingeniería y seguridad', courses:['Desarrollo Seguro — abril 2023 (vigencia documental finalizada en 2025).','Desarrollo Seguro V2.0 — abril 2024 (vigencia documental finalizada en 2025).']},
+ {title:'Data & Analytics', courses:['Power BI — 8 h · junio 2026.']},
+ {title:'Gestión y procesos', courses:['Gestión de Procesos en Indra Group — 1 h · octubre 2026.']},
+ {title:'Competencias profesionales', courses:['Comunicación Efectiva — 8 h · marzo 2026.']}
+];
+---
+<BaseLayout title="Learning & Credentials | XEMO" description="Formación continua en ingeniería, inteligencia artificial, seguridad y competencias profesionales.">
+<h1>Learning &amp; Credentials</h1>
+<p>Formación continua y desarrollo profesional. Selección de cursos documentados, diferenciados de las certificaciones profesionales.</p>
+<section class="card"><h2>Salesforce</h2><p>Certificaciones profesionales y trayectoria de aprendizaje en Trailhead.</p><a href="/about/">Consultar perfil y acreditaciones</a></section>
+<div class="cards learning-grid">{categories.map(category => <section class="card"><h2>{category.title}</h2><ul>{category.courses.map(course => <li>{course}</li>)}</ul></section>)}</div>
+</BaseLayout>
+<style>.learning-grid{margin-top:16px}.learning-grid li+li{margin-top:12px}</style>

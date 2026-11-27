@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFileSync, existsSync} from 'node:fs';
-for (const path of ['index.html','blog/index.html','projects/index.html','about/index.html','privacy/index.html']) {
+for (const path of ['index.html','blog/index.html','projects/index.html','about/index.html','privacy/index.html','learning/index.html']) {
  const html=readFileSync('dist/'+path,'utf8');
  assert.match(html, /lang="es"/);
  assert.match(html, /<link[^>]+rel="canonical"[^>]+href="https:\/\/arsenioxemo\.github\.io\//);
@@ -23,3 +23,15 @@ for (const match of about.matchAll(/<img[^>]+src="(\/[^"]+)"/g)) {
  assert.ok(existsSync('dist'+match[1]), 'Missing image: '+match[1]);
 }
 console.log('Professional profile and SEO checks passed');
+
+const home = readFileSync('dist/index.html','utf8');
+assert.match(home, /id="xemo-host"/);
+assert.match(home, /prefers-reduced-motion/);
+for (const asset of ['xemo-welcome.webp','xemo-static.webp']) {
+ assert.ok(existsSync('dist/images/'+asset), 'Missing host asset: '+asset);
+}
+const learning = readFileSync('dist/learning/index.html','utf8');
+assert.match(learning, /Inteligencia artificial/);
+assert.match(learning, /Ingeniería y seguridad/);
+assert.match(learning, /Data &amp; Analytics/);
+console.log('Learning and welcome host checks passed');
