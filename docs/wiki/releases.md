@@ -51,4 +51,8 @@ Drive inventory: 26 PDFs; 10 titles identified and one SCRUMstudy document parti
 
 ## v0.4.1 — LinkedIn integration
 
-Conversation card and optional validated public post URL, with profile fallback and existing share link. CI and release pending. LinkedIn scheduled content unchanged.
+Conversation card and optional validated public post URL, with profile fallback and existing share link. CI #60 passed on efbca81; PR #9 merged as d9f2da0. Owner approved conditional release. Production deployment and visual acceptance remain pending. LinkedIn scheduled content unchanged.
+
+### RCA — npm lockfile consistency
+
+Global version replacement accidentally modified transitive package versions, including xml-naming and media-typer. Owner regenerated the lockfile with npm and pushed efbca81. CI #60 passed npm ci, audit, build and quality gates. Future version changes must use npm version --no-git-tag-version, inspect the diff and validate npm ci. Never globally replace dependency versions or bypass CI.
