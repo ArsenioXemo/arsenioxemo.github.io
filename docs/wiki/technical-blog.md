@@ -13,3 +13,7 @@ Implemented in v0.4.0: reading time, related articles, social metadata, RSS, cat
 | Understand your code | /blog/understand-your-code/ | 2026-12-07 |
 
 All three approved for simultaneous publication. Dates are editorial metadata, not scheduled deployment. Drafts outside src/pages are excluded from the website but remain visible in the public repository. Production article-level acceptance and formal release tag remain pending.
+
+## LinkedIn conversation (v0.4.1)
+
+Optional frontmatter `linkedinPost` accepts an HTTPS www.linkedin.com posts or feed/update activity URL. Until a public post URL is available, the conversation card links to the author profile. Sharing remains available. No embeds, scripts or dependencies. Add verified public post URLs through a PR after publication; never use Metricool planner URLs.

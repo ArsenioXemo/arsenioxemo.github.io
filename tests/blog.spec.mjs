@@ -19,6 +19,9 @@ for(const slug of slugs){
   }
   await expect(page.getByText(/min de lectura/)).toBeVisible();
   await expect(page.getByRole('link',{name:'Compartir en LinkedIn'})).toHaveAttribute('href',/^https:\/\/www\.linkedin\.com\//);
+  await expect(page.getByRole('heading',{name:'Continuemos la conversación'})).toBeVisible();
+  await expect(page.getByRole('link',{name:'Conecta conmigo en LinkedIn'})).toHaveAttribute('href',/^https:\/\/www\.linkedin\.com\/in\//);
+  await expect(page.getByRole('link',{name:'Ver publicación en LinkedIn'})).toHaveCount(0);
   await page.setViewportSize({width:320,height:720});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
   expect(await page.evaluate(()=>window.__blogCsp)).toEqual(violations);
