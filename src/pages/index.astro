@@ -1,5 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="XEMO | Arsenio Pérez López — Ingeniería y arquitectura" description="Portal profesional de Arsenio Pérez López: arquitectura de soluciones, ingeniería de software, Salesforce y aprendizaje continuo."><p class="eyebrow">INGENIERÍA · ARQUITECTURA · TECNOLOGÍA</p><h1>Construyendo soluciones.<br/>Compartiendo experiencias.</h1><p>Reflexiones sobre ingeniería de software, arquitectura, inteligencia artificial y las lecciones que aprendemos construyendo tecnología.</p><div class="home-actions"><a class="cta" href="/about/">Conocer mi perfil</a><a href="/blog/">Explorar artículos</a><a href="/projects/">Ver proyectos</a></div><h2>Áreas de interés</h2><div class="cards"><section class="card"><h3>Arquitectura</h3><p>Simplicidad, integración y diseño de soluciones.</p></section><section class="card"><h3>Ingeniería</h3><p>Calidad, mantenibilidad y aprendizaje práctico.</p></section><section class="card"><h3>Inteligencia artificial</h3><p>Automatización responsable y criterio técnico.</p></section></div></BaseLayout>
-<style>.home-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}</style>
+<BaseLayout title="XEMO | Arsenio Pérez López — Ingeniería y arquitectura" description="Portal profesional de Arsenio Pérez López: arquitectura de soluciones, ingeniería de software, Salesforce y aprendizaje continuo."><section class="hero"><div><p class="eyebrow">INGENIERÍA · ARQUITECTURA · TECNOLOGÍA</p><p>¡Hola! Bienvenido a mi espacio digital.</p><h1>Construyendo soluciones.<br/>Compartiendo experiencias.</h1><p>Reflexiones sobre ingeniería de software, arquitectura, inteligencia artificial y las lecciones que aprendemos construyendo tecnología.</p><div class="home-actions"><a class="cta" href="/about/">Conocer mi perfil</a><a href="/blog/">Explorar artículos</a><a href="/projects/">Ver proyectos</a></div></div><button type="button" id="xemo-host" class="host" aria-label="Saludar a XEMO"><picture><source media="(prefers-reduced-motion: reduce)" srcset="/images/xemo-static.webp"/><img src="/images/xemo-welcome.webp" width="280" height="280" alt="" decoding="async"/></picture></button></section><h2>Áreas de interés</h2><div class="cards"><section class="card"><h3>Arquitectura</h3><p>Simplicidad, integración y diseño de soluciones.</p></section><section class="card"><h3>Ingeniería</h3><p>Calidad, mantenibilidad y aprendizaje práctico.</p></section><section class="card"><h3>Inteligencia artificial</h3><p>Automatización responsable y criterio técnico.</p></section></div></BaseLayout>
+<style>.home-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,280px);align-items:center;gap:24px}.host{background:none;border:0;padding:0;cursor:pointer;color:inherit}.host img{display:block;width:100%;height:auto}.host:focus-visible{outline:3px solid #ffb45d;outline-offset:4px}@media(max-width:650px){.hero{grid-template-columns:1fr}.host{max-width:220px;justify-self:center}}</style>
+
+<script>
+const host = document.querySelector<HTMLButtonElement>("#xemo-host");
+host?.addEventListener("click", () => {
+ if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+ const img = host.querySelector("img");
+ if (!img) return;
+ const replacement = img.cloneNode(true) as HTMLImageElement;
+ replacement.src = "/images/xemo-welcome.webp?replay=" + Date.now();
+ img.replaceWith(replacement);
+});
+</script>
