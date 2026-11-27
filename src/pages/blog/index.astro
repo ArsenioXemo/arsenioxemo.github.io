@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const posts = Object.values(import.meta.glob('./*.md', { eager: true }));
+const posts=Object.values(import.meta.glob('./*.md',{eager:true})).sort((a:any,b:any)=>new Date(b.frontmatter.pubDate).getTime()-new Date(a.frontmatter.pubDate).getTime());
+const categories=[...new Set(posts.map((p:any)=>p.frontmatter.category))];
 ---
-<BaseLayout title="Blog | XEMO"><h1>Blog</h1><p>Ingeniería, tecnología y experiencia profesional.</p>{posts.length === 0 ? <p>Próximamente: primeros artículos.</p> : <div class="cards">{posts.map((post: any) => <article class="card"><h2><a href={post.url}>{post.frontmatter.title}</a></h2><p>{post.frontmatter.description}</p></article>)}</div>}</BaseLayout>
+<BaseLayout title="Blog | XEMO" description="Experiencias reales. Conocimiento compartido."><h1>Technical Blog</h1><p>Experiencias reales. Conocimiento compartido.</p>
+{categories.length>0 && <nav aria-label="Categorías"><a href="#todos">Todos</a>{categories.map((c:any,i)=><a href={'#categoria-'+i}>{c}</a>)}</nav>}
+<section id="todos"><h2>Últimos artículos</h2>{posts.length===0?<p>Próximamente: primeros artículos.</p>:<div class="cards">{posts.map((p:any)=><article class="card">{p.frontmatter.cover && <img src={p.frontmatter.cover} alt={p.frontmatter.coverAlt || ''} width="1200" height="630" loading="lazy"/>}<p class="eyebrow">{p.frontmatter.category}</p><h2><a href={p.url}>{p.frontmatter.title}</a></h2><p>{p.frontmatter.description}</p><time datetime={String(p.frontmatter.pubDate)}>{String(p.frontmatter.pubDate).slice(0,10)}</time></article>)}</div>}</section>
+{categories.map((c:any,i)=><section id={'categoria-'+i}><h2>{c}</h2><ul>{posts.filter((p:any)=>p.frontmatter.category===c).map((p:any)=><li><a href={p.url}>{p.frontmatter.title}</a></li>)}</ul></section>)}
+</BaseLayout><style>.card img{width:100%;height:auto;border-radius:8px}.card time{color:#a7b8cc;font-size:.85rem}section{margin-top:32px}</style>
