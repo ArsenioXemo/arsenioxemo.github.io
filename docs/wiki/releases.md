@@ -7,7 +7,7 @@
 | 0.2.0 | Professional profile, portfolio, Trailhead, visual identity, SEO | Merged (a91db01) |
 | 0.2.1 | Credential cards and homepage navigation | Merged (849e259) |
 | 0.3.0 | Credentials, learning catalog and animated host | Merged (3eefc89); owner confirmed desktop/mobile presentation |
-| 0.4.0 | Technical blog content | Draft PR #7; QA pending |
+| 0.4.0 | Technical blog content | Merged (2016511); owner accepted blog listing visually |
 
 ## 0.2.0 traceability
 
@@ -39,5 +39,12 @@ Drive inventory: 26 PDFs; 10 titles identified and one SCRUMstudy document parti
 
 - HUB-068: prior release status reconciled; formal tags and full production checks remain pending.
 - HUB-069–076: article layout, categories, reading time, related articles, SEO, RSS, sharing and three editorial drafts integrated for branch preview.
-- HUB-077: version 0.4.0 synchronized, article routes added to Lighthouse, Playwright checks added. Final CI and visual review pending.
-- Static publication dates are metadata, not scheduling. Owner must approve publication timing before merge.
+- HUB-077: version 0.4.0 synchronized, article routes added to Lighthouse, Playwright checks added. CI #55 passed on 11a0d7b; PR #7 merged into main as 2016511.
+- Static publication dates are metadata, not scheduling. Owner explicitly approved simultaneous publication, all three articles, documented residual risks and post-merge visual review.
+
+### v0.4.0 acceptance evidence
+
+- Owner screenshots show three article cards with covers, categories, titles, descriptions and dates, plus category sections. Owner accepted the listing visually.
+- CI #55 passed build, dependency audit, smoke, Playwright, Lighthouse and passive ZAP steps. This is not a full penetration test.
+- Production workflow conclusion was not independently retrieved. Individual article, mobile, sharing, RSS and consent production checks and formal tag remain pending.
+- LinkedIn schedule unchanged.
