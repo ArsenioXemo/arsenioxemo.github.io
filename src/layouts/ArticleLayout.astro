@@ -6,6 +6,12 @@ const current=posts.find((p:any)=>p.url===Astro.url.pathname || p.url+'/'===Astr
 const words=(current as any)?.rawContent?.().trim().split(/\s+/).length || 0;
 const minutes=Math.max(1,Math.ceil(words/200));
 const related=posts.filter((p:any)=>p!==current && p.frontmatter.title!==f.title && p.frontmatter.category===f.category).slice(0,3);
+const linkedinProfile='https://www.linkedin.com/in/arsenio-p%C3%A9rez-l%C3%B3pez/';
+let linkedinPost='';
+try {
+ const candidate=new URL(f.linkedinPost || '');
+ if(candidate.origin==='https://www.linkedin.com' && /^\/(posts\/[^/]+|feed\/update\/urn:li:(activity|ugcPost):\d+)\/?$/.test(candidate.pathname)) linkedinPost=candidate.origin+candidate.pathname;
+} catch {}
 const url=new URL(Astro.url.pathname,Astro.site).href;
 ---
 <BaseLayout title={f.title+' | XEMO'} description={f.description} article={true} cover={f.cover}>
@@ -13,8 +19,9 @@ const url=new URL(Astro.url.pathname,Astro.site).href;
 {f.cover && <figure><img src={f.cover} alt={f.coverAlt || ''} width="1200" height="630" decoding="async"/>{f.coverCaption && <figcaption>{f.coverCaption}</figcaption>}</figure>}
 {f.tags && <p class="tags">{f.tags.map((tag:string)=><span>#{tag}</span>)}</p>}
 {headings.length>0 && <nav class="toc" aria-label="Índice del artículo"><strong>En este artículo</strong><ul>{headings.filter((h:any)=>h.depth===2).map((h:any)=><li><a href={'#'+h.slug}>{h.text}</a></li>)}</ul></nav>}
-<div class="prose"><slot/></div><hr/><p><a href={'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)}>Compartir en LinkedIn</a></p><aside class="card"><h2>Sobre el autor</h2><p>Arsenio Pérez López · Solution Architecture & Software Engineering</p><a href="/about/">Conocer mi perfil</a></aside>{related.length>0 && <section><h2>Artículos relacionados</h2><ul>{related.map((p:any)=><li><a href={p.url}>{p.frontmatter.title}</a></li>)}</ul></section>}</article>
+<div class="prose"><slot/></div><hr/><aside class="conversation card" aria-labelledby="linkedin-conversation"><h2 id="linkedin-conversation">Continuemos la conversación</h2><p>¿Qué opinas sobre este artículo? Comparte tu experiencia y participa en la conversación en LinkedIn.</p><div class="conversation-actions">{linkedinPost && <a class="linkedin-cta" href={linkedinPost}>Ver publicación en LinkedIn</a>}<a class={linkedinPost ? 'profile-link' : 'linkedin-cta'} href={linkedinProfile}>Conecta conmigo en LinkedIn</a></div><p><a href={'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(url)}>Compartir en LinkedIn</a></p></aside><aside class="card"><h2>Sobre el autor</h2><p>Arsenio Pérez López · Solution Architecture & Software Engineering</p><a href="/about/">Conocer mi perfil</a></aside>{related.length>0 && <section><h2>Artículos relacionados</h2><ul>{related.map((p:any)=><li><a href={p.url}>{p.frontmatter.title}</a></li>)}</ul></section>}</article>
 </BaseLayout>
 <style>
 .post{max-width:780px;margin:auto}.post h1{font-size:clamp(2rem,5vw,3.4rem)}.byline,figcaption{color:#a7b8cc;font-size:.9rem}figure{margin:24px 0}figure img{width:100%;height:auto;border-radius:12px}figcaption{text-align:center}.tags{display:flex;gap:8px;flex-wrap:wrap}.tags span{background:#18283b;color:#22d3ee;padding:4px 10px;border-radius:16px}.toc{display:block;border:1px solid #334155;border-radius:12px;padding:18px}.prose :global(img){max-width:100%;height:auto}.prose :global(pre){overflow:auto;padding:16px;border-radius:8px}.prose :global(table){display:block;overflow-x:auto;border-collapse:collapse}.prose :global(td),.prose :global(th){padding:8px;border:1px solid #334155}.prose :global(blockquote){border-left:3px solid #ffb45d;margin-left:0;padding-left:18px}.prose :global(h2){margin-top:2em}
+.conversation{margin:24px 0;background:#18283b;border:1px solid #334155;border-radius:12px;padding:22px}.conversation h2{color:#ffb45d;margin-top:0}.conversation-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.linkedin-cta{display:inline-block;background:#0a66c2;color:#fff;padding:12px 16px;border-radius:8px;font-weight:600;text-decoration:none}.linkedin-cta:hover{text-decoration:underline}.conversation a:focus-visible{outline:3px solid #22d3ee;outline-offset:4px}.profile-link{color:#22d3ee}
 </style>
