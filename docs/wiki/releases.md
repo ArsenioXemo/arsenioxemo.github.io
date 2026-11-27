@@ -48,3 +48,7 @@ Drive inventory: 26 PDFs; 10 titles identified and one SCRUMstudy document parti
 - CI #55 passed build, dependency audit, smoke, Playwright, Lighthouse and passive ZAP steps. This is not a full penetration test.
 - Production workflow conclusion was not independently retrieved. Individual article, mobile, sharing, RSS and consent production checks and formal tag remain pending.
 - LinkedIn schedule unchanged.
+
+## v0.4.1 — LinkedIn integration
+
+Conversation card and optional validated public post URL, with profile fallback and existing share link. CI and release pending. LinkedIn scheduled content unchanged.
