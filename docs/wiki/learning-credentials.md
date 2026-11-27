@@ -11,3 +11,7 @@ Local WebP assets, responsive layout, reduced-motion alternative and replay cont
 ## Release status
 
 PR #6 draft. Full inventory and quality review pending.
+
+## QA remediation (HUB-061–067)
+
+External same-origin deferred script; CSP unchanged. Reduced-motion preference disables replay. Added desktop/mobile Playwright coverage for catalog navigation, overflow, keyboard replay, CSP violations and static fallback. Lighthouse includes learning route. Package and lockfile version 0.3.0. Final CI, visual review and release approval pending. Replay test verifies image reload, not frame timing or loop count.
