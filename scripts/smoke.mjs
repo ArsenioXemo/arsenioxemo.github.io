@@ -35,3 +35,10 @@ assert.match(learning, /Inteligencia artificial/);
 assert.match(learning, /Ingeniería y seguridad/);
 assert.match(learning, /Data &amp; Analytics/);
 console.log('Learning and welcome host checks passed');
+
+const editorialAsset = JSON.parse(readFileSync('src/editorial-assets/senior-wizard-of-oz.json','utf8'));
+const emittedCover = readFileSync('dist/images/blog/senior-wizard-of-oz.webp');
+assert.deepEqual(emittedCover, Buffer.from(editorialAsset.base64,'base64'));
+assert.equal(emittedCover.length,123478);
+assert.equal((await import('node:crypto')).createHash('sha1').update('blob '+emittedCover.length+'\0').update(emittedCover).digest('hex'),'dfbd76058700e6c0e022ad482601a2c07598742b');
+console.log('Editorial asset byte-for-byte verification passed');
