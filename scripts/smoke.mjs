@@ -42,3 +42,11 @@ assert.deepEqual(emittedCover, Buffer.from(editorialAsset.base64,'base64'));
 assert.equal(emittedCover.length,123478);
 assert.equal((await import('node:crypto')).createHash('sha1').update('blob '+emittedCover.length+'\0').update(emittedCover).digest('hex'),'dfbd76058700e6c0e022ad482601a2c07598742b');
 console.log('Editorial asset byte-for-byte verification passed');
+
+const pilotArticle = readFileSync('dist/blog/senior-wizard-of-oz/index.html','utf8');
+assert.match(pilotArticle,/Ser Senior no significa ser el mago de Oz/);
+assert.ok(pilotArticle.includes('/images/blog/senior-wizard-of-oz.webp'));
+const pilotFeed = readFileSync('dist/rss.xml','utf8');
+assert.equal((pilotFeed.match(/<item>/g)||[]).length,4);
+assert.equal((pilotFeed.match(/<link>https:\/\/arsenioxemo\.github\.io\/blog\/senior-wizard-of-oz\/<\/link>/g)||[]).length,1);
+console.log('ART-004 RSS pilot checks passed');
